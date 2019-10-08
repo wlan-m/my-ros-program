@@ -1,0 +1,17 @@
+<launch>
+
+  <group ns="$(arg veh)">  
+  
+    <node pkg="my_package" type="my_node.py" name="my_node_1" output="screen"/>
+    <node pkg="my_package" type="my_node.py" name="my_node_2" output="screen"/>
+
+    <remap from="~my_node_subscriber_1/chatter" to="~my_node_1/chatter"/>
+<node pkg="my_package" type="my_node_subscriber.py" name="my_node_subscriber_1"  output="screen"/>
+    
+    <node pkg="my_package" type="my_node_subscriber.py" name="my_node_subscriber_2"  output="screen">
+        <remap from="~/chatter" to="/$(arg veh)/my_node_2/chatter"/>
+    </node>
+
+   </group>
+
+</launch>
